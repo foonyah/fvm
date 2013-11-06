@@ -48,6 +48,12 @@ if [ -z "$NODE_VER" ];then
 fi
 NVM_HOME=$WORKSPACE/$NVM_PATH
 
+echo $WORKSPACE
+echo $NODE_VER
+echo $NVM_PATH
+echo $NVM_HOME
+exit 0
+
 if [ -n "$INSTALL" ];then
   git clone https://github.com/creationix/nvm.git $NVM_PATH
   source $NVM_PATH/nvm.sh
