@@ -4,13 +4,23 @@
 
 First you'll need to make sure your system has a c++ compiler.  For OSX, XCode will work, for Ubuntu, the build-essential and libssl-dev packages work.
 
+### Automatic install
+
+For automatic environment making for foonyah can be created:
+
+    curl https://raw.github.com/foonyah/fvm/master/fvm.sh | sh
+    
+or Wget:
+
+    wget -qO- https://raw.github.com/foonyah/fvm/master/fvm.sh | sh
+
 ### Manual install
 
 For manual install create a folder somewhere in your filesystem with the `fvm.sh` file inside it.  I put mine in a folder called `fvm`.
 
 Or if you have `git` installed, then just clone it:
 
-    git clone https://github.com/creationix/nvm.git ~/.fvm
+    git clone https://github.com/foonyah/fvm.git ~/.fvm
 
 To activate fvm, you need to source it from your bash shell
 
