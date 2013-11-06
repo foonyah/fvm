@@ -32,7 +32,7 @@ if [ -n "$WORKSPACE" ];then
   mkdir -p $WORKSPACE
   cd $WORKSPACE
 fi
-if [ "sh" == "$WORKSPACE" ];then
+if [ "sh" == "$0" ];then
   INSTALL=1
   WORKSPACE=`pwd`
   # execute this position
