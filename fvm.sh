@@ -14,7 +14,7 @@ fpm () {
 }
 
 node_source () {
-  source $NVM_HOME/nvm.sh
+  source $NVM_PATH/nvm.sh
   nvm use v$NODE_VER
 }
 
@@ -47,12 +47,6 @@ if [ -z "$NODE_VER" ];then
   NODE_VER=0.10.21
 fi
 NVM_HOME=$WORKSPACE/$NVM_PATH
-
-echo $WORKSPACE
-echo $NODE_VER
-echo $NVM_PATH
-echo $NVM_HOME
-exit 0
 
 if [ -n "$INSTALL" ];then
   git clone https://github.com/creationix/nvm.git $NVM_PATH
