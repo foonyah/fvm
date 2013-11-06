@@ -55,7 +55,7 @@ if [ -n "$INSTALL" ];then
 fi
 
 if [ ! -d "$NVM_PATH/node_modules" ];then
-  mkdir node_modules
+  mkdir -p node_modules
 fi
 
 if [ -n "$INSTALL" ];then
