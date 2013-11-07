@@ -70,6 +70,6 @@ fi
 
 if [ -n "$INSTALL" ];then
   npm install named-argv@0.1.0
-  npm install micro-pipe@0.1.0
+  npm install micro-pipe@0.1.4
   fvm install
 fi
