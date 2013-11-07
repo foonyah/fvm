@@ -1,6 +1,6 @@
 /***/
 var assert = require('assert'), path = require('path'), fs = require('fs');
-var argv = require('./named-argv'), micropipe = require('./micro-pipe');
+var argv = require('named-argv'), micropipe = require('micro-pipe');
 var platform = require('os').platform;
 
 var Mongo = {
