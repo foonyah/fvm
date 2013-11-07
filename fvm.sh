@@ -5,12 +5,12 @@
 # Implemented by Yoshitaka Sakamoto <sakamoto@liberty-technology.biz>
 fvm () {
   node_source
-  node fvm.js $@
+  node $FVM_PATH/fvm.js $@
 }
 
 fpm () {
   node_source
-  node fpm.js $@
+  node $FVM_PATH/fpm.js $@
 }
 
 node_source () {
@@ -48,8 +48,18 @@ if [ -z "$NODE_VER" ];then
 fi
 NVM_HOME=$WORKSPACE/$NVM_PATH
 
+# Set nvm directory ( Default: .fvm )
+if [ -z "$FVM_PATH" ];then
+  FVM_PATH=.fvm
+fi
+if [ -z "$FOONYAH_VER" ];then
+  FOONYAH_VER=0.3.0
+fi
+FVM_HOME=$WORKSPACE/$FVM_PATH
+
 if [ -n "$INSTALL" ];then
   git clone https://github.com/creationix/nvm.git $NVM_PATH
+  git clone https://github.com/foonyah/fvm.git $NVM_PATH
   source $NVM_PATH/nvm.sh
   nvm install v$NODE_VER
 fi
