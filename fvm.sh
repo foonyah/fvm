@@ -59,7 +59,7 @@ FVM_HOME=$WORKSPACE/$FVM_PATH
 
 if [ -n "$INSTALL" ];then
   git clone https://github.com/creationix/nvm.git $NVM_PATH
-  git clone https://github.com/foonyah/fvm.git $NVM_PATH
+  git clone https://github.com/foonyah/fvm.git $FVM_PATH
   source $NVM_PATH/nvm.sh
   nvm install v$NODE_VER
 fi
