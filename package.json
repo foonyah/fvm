@@ -1,0 +1,15 @@
+{
+  "name": "fvm-install-tasks",
+  "version": "0.1.0",
+  "taskList": ["mongodb-install"],
+  "configure": {
+    "mongodb": {
+      "dist": "http://fastdl.mongodb.org/",
+      "version": "2.4.8",
+      "simbolicTo": "mongodb"
+    },
+    "node": {
+      "version": "0.10.21"
+    }
+  }
+}

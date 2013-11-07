@@ -52,10 +52,6 @@ NVM_HOME=$WORKSPACE/$NVM_PATH
 if [ -z "$FVM_PATH" ];then
   FVM_PATH=.fvm
 fi
-if [ -z "$FNY_VER" ];then
-  FNY_VER=0.3.0
-fi
-FVM_HOME=$WORKSPACE/$FVM_PATH
 
 if [ -n "$INSTALL" ];then
   git clone https://github.com/creationix/nvm.git $NVM_PATH
@@ -71,5 +67,6 @@ fi
 if [ -n "$INSTALL" ];then
   npm install named-argv@0.1.0
   npm install micro-pipe@0.1.4
+  npm install grunt@0.4.1
   fvm install
 fi
