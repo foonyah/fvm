@@ -1,4 +1,7 @@
 /***/
+var pwd = process.cwd(), tasks = [];
+console.log(pwd);
+
 var assert = require('assert'), path = require('path'), fs = require('fs');
 var argv = require('named-argv'), micropipe = require('micro-pipe');
 var platform = require('os').platform;
@@ -8,7 +11,6 @@ var Mongo = {
   Cver: '2.4.8'
 };
 
-var pwd = process.cwd(), tasks = [];
 var mem = null;
 tasks.push(function(next) {
   // open archive file

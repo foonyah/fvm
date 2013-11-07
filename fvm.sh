@@ -52,8 +52,8 @@ NVM_HOME=$WORKSPACE/$NVM_PATH
 if [ -z "$FVM_PATH" ];then
   FVM_PATH=.fvm
 fi
-if [ -z "$FOONYAH_VER" ];then
-  FOONYAH_VER=0.3.0
+if [ -z "$FNY_VER" ];then
+  FNY_VER=0.3.0
 fi
 FVM_HOME=$WORKSPACE/$FVM_PATH
 
