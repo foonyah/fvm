@@ -1,0 +1,23 @@
+{
+  "name": "fvm-install-tasks",
+  "version": "0.1.0",
+  "taskList": ["mongodb-install", "mongodb-process-launch", "foonyah-prepare"],
+  "configure": {
+    "mongodb": {
+      "dist": "http://fastdl.mongodb.org/",
+      "version": "2.4.8",
+      "simbolicLinkTo": "mongodb"
+    },
+    "mongodb-process": {
+      "options": "--nssize=4 --oplogSize=32 --nohttpinterface --nojournal --fork",
+      "mongod": [{
+        "port": "27017",
+        "data": "data/db17",
+        "options": "--logpath=log17 --pidfilepath=pid17"
+      }]
+    },
+    "node": {
+      "version": "0.10.21"
+    }
+  }
+}

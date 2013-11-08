@@ -1,22 +1,18 @@
 /***/
-var path = require('path'), fs = require('fs'), _ = require('../task-util');
+var path = require('path'), fs = require('fs'), _ = require('grun')._;
 var taskname = __dirname.split('/').pop(); // mongodb-install
 
 module.exports = function(grunt) {
-  grunt.registerTask(taskname, 'Download archive and install mongodb.',
-    function() {
-      try {
-        mongodbInstall(grunt, _.mixedConfigure(grunt, taskname), this);
-      } catch(e) {
-        grunt.fail.fatal(e);
-      }
-    });
+  var tmes = 'Download archive and install mongodb.';
+  grunt.registerTask(taskname, tmes, _.caught(function() {
+    mongodbInstall(grunt, _.mixedConfigure(grunt, taskname), this);
+  }, grunt.fail));
 };
 function mongodbInstall(grunt, conf, gtask) {
 
   var afp = path.join(_.pwd, 'mongodb' + _.archiveExt());
   var line = [], done = gtask.async(), stop = function(e) {
-    grunt.fail.fatal(err);
+    grunt.fail.fatal(e);
   }, log = function(m) {
     _.util.log('[' + gtask.name + '] ' + m);
   };
@@ -52,23 +48,30 @@ function mongodbInstall(grunt, conf, gtask) {
   line.push(function(next) {
     // decompress
     require('child_process').exec(_.decompress(afp)).on('exit', function(code) {
-      log('Decompress mongodb archive finished with code: ' + code);
+      log('Decompress mongodb archive finished.');
       next();
     });
   });
 
   line.push(function(next) {
+    // remove sinbolic link if exist
+    fs.unlink(conf.simbolicLinkTo, function(err) {
+      next();
+    })
+  });
+
+  line.push(function(next) {
     // add sinbolic link
-    require('child_process').exec(_.simbolicLink(mongoArchive(), 'mongo')).on(
-      'exit', function(code) {
-        log('Simbolic link to mongodb finished with code: ' + code);
-        next();
-      });
+    require('child_process').exec(
+      _.simbolicLink(mongoArchive(), conf.simbolicLinkTo)).on('exit', onExit);
+    function onExit(code) {
+      log('Create simbolic link "' + conf.simbolicLinkTo + '" finished.');
+      next();
+    }
   });
 
   line.push(function() {
-    log('done.');
-    done();
+    log('done.'), done();
   });
 
   _.micropipe(line);

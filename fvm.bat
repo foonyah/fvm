@@ -1,6 +1,5 @@
 # foonyah Version Manager
-# Implemented as a bash function
-# To use source this file from your bash profile
+# Implemented as a windows bat function
 
 # Implemented by Yoshitaka Sakamoto <sakamoto@liberty-technology.biz>
 fvm () {
@@ -39,9 +38,9 @@ if [ "sh" == "$0" ];then
 fi
 
 
-# Set nvm directory ( Default: .nvm )
+# Set nvm directory ( Default: .nvmw )
 if [ -z "$NVM_PATH" ];then
-  NVM_PATH=.nvm
+  NVM_PATH=.nvmw
 fi
 if [ -z "$NODE_VER" ];then
   NODE_VER=0.10.21
@@ -54,10 +53,10 @@ if [ -z "$FVM_PATH" ];then
 fi
 
 if [ -n "$INSTALL" ];then
-  git clone https://github.com/creationix/nvm.git $NVM_PATH
+  git clone https://github.com/hakobera/nvmw.git $NVM_PATH
   git clone https://github.com/foonyah/fvm.git $FVM_PATH
-  source $NVM_PATH/nvm.sh
-  nvm install v$NODE_VER
+  set path=.¥.nvmw¥
+  nvmw install v$NODE_VER
 fi
 
 if [ ! -d "./node_modules" ];then
@@ -66,8 +65,14 @@ fi
 
 if [ -n "$INSTALL" ];then
   # require npm modules
-  if [ ! -d "./node_modules/grun" ];then
-    npm install grun@0.1.0
+  if [ ! -d "./node_modules/named-argv" ];then
+    npm install named-argv@0.1.0
+  fi
+  if [ ! -d "./node_modules/micro-pipe" ];then
+    npm install micro-pipe@0.1.4
+  fi
+  if [ ! -d "./node_modules/grunt" ];then
+    npm install grunt@0.4.1
   fi
   fvm install
 fi
