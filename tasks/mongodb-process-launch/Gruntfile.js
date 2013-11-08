@@ -1,6 +1,6 @@
 /***/
 var path = require('path'), fs = require('fs'), _ = require('grunt-runner')._;
-var taskname = __dirname.split('/').pop(); // mongodb-process-launch
+var taskname = _.taskname(__dirname); // mongodb-process-launch
 
 module.exports = function(grunt) {
   var tmes = 'Starting mongodb.';
@@ -20,7 +20,7 @@ function mongodbPLaunch(grunt, conf, gtask) {
   var opts = conf.options;
   Array.isArray(conf.mongod) && conf.mongod.forEach(function(stat) {
     var ch_opts = stat.options;
-    line.push(function(next){
+    line.push(function(next) {
       _.rmkdir(_.pwd, stat.data).on('error', stop).on('end', next);
     });
     line.push(function(next) {
