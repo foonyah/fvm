@@ -16,12 +16,12 @@ function mongodbInstall(grunt, conf, gtask) {
   }, log = function(m) {
     _.util.log('[' + gtask.name + '] ' + m);
   };
-  
+
   // download mongodb
-  line.push(_.caught(function(next) {
+  line.push(function(next) {
     _.download(mongoArchiveURL(), afp).on('message', log).on('error', stop).on(
       'end', next);
-  }));
+  });
 
   //decompress
   line.push(function(next) {
@@ -30,7 +30,7 @@ function mongodbInstall(grunt, conf, gtask) {
 
   // add symbolic link
   line.push(function(next) {
-    _.simbolicLink(mongoArchive(), conf.simbolicLinkTo).on('message', log).on(
+    _.symlinkd(mongoArchive(), conf.simbolicLinkTo).on('message', log).on(
       'error', stop).on('end', next);
   });
 

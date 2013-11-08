@@ -16,7 +16,7 @@ function foonyahPrepare(grunt, conf, gtask) {
     _.util.log('[' + gtask.name + '] ' + m);
   };
 
-  //mkdir "foonyah", "foonyah-plugins"
+  //mkdir ".fvm/downloaads", "foonyah", "foonyah-plugins"
   ['node_modules/foonyah', 'node_modules/foonyah-plugins'].forEach(function(f) {
     var d = path.resolve('./' + f);
     line.push(function() {

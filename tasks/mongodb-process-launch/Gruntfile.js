@@ -19,17 +19,10 @@ function mongodbPLaunch(grunt, conf, gtask) {
 
   var opts = conf.options;
   Array.isArray(conf.mongod) && conf.mongod.forEach(function(stat) {
-
-    var ch_opts = stat.options, d_dira = stat.data.split('/'), d_dir = '';
-    while(d_dira.length)
-      (function(t_dir) {
-        line.push(function(next) {
-          _.mkdir(path.join(_.pwd, t_dir), function(err) {
-            err ? stop(err): next();
-          });
-        });
-      })(d_dir += (d_dir ? '/': '') + d_dira.shift());
-
+    var ch_opts = stat.options;
+    line.push(function(next){
+      _.rmkdir(_.pwd, stat.data).on('error', stop).on('end', next);
+    });
     line.push(function(next) {
       var cmd = [mongo + 'd', '--port=' + stat.port, '--dbpath=' + stat.data];
       ch_opts && cmd.push(ch_opts), opts && cmd.push(opts);
