@@ -1,2 +1,2 @@
 /***/
-require('grun')(__dirname);
+require('grunt-runner')(__dirname);

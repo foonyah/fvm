@@ -31,11 +31,14 @@ foonyah () {
 if [ -n "$WORKSPACE" ];then
   mkdir -p $WORKSPACE
   cd $WORKSPACE
+else
+  WORKSPACE=`pwd`
 fi
 if [ "sh" == "$0" ];then
   INSTALL=1
-  WORKSPACE=`pwd`
   # execute this position
+else if [ "install" == "$1" ];then
+  INSTALL=1
 fi
 
 

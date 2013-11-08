@@ -1,5 +1,5 @@
 /***/
-var path = require('path'), fs = require('fs'), _ = require('grun')._;
+var path = require('path'), fs = require('fs'), _ = require('grunt-runner')._;
 var taskname = __dirname.split('/').pop(); // foonyah-prepare
 
 module.exports = function(grunt) {

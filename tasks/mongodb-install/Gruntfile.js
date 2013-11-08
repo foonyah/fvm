@@ -1,5 +1,5 @@
 /***/
-var path = require('path'), fs = require('fs'), _ = require('grun')._;
+var path = require('path'), fs = require('fs'), _ = require('grunt-runner')._;
 var taskname = __dirname.split('/').pop(); // mongodb-install
 
 module.exports = function(grunt) {
@@ -16,58 +16,22 @@ function mongodbInstall(grunt, conf, gtask) {
   }, log = function(m) {
     _.util.log('[' + gtask.name + '] ' + m);
   };
+  
+  // download mongodb
+  line.push(_.caught(function(next) {
+    _.download(mongoArchiveURL(), afp).on('message', log).on('error', stop).on(
+      'end', next);
+  }));
 
-  line.push(function() {
-    // create file
-    var next = _.next(arguments);
-    fs.open(afp, 'w', function(err, fd) {
-      err ? stop(err): next(fd);
-    });
-  });
-
-  line.push(function(fd, next) {
-    // download mongodb
-    require('http').get(mongoArchiveURL(), function(res) {
-      var len = 0;
-      var bytes = _.thousandSep(res.headers['content-length']) + ' bytes';
-      log('Downloading mongodb archive... (' + bytes + ')');
-      res.on('data', function(d) {
-        fs.write(fd, d, 0, d.length, len), len += d.length;
-      }).on('end', function() {
-        next(fd);
-      });
-    });
-  });
-
-  line.push(function(fd, next) {
-    fs.close(fd, function(err) {
-      err ? stop(err): next();
-    });
-  });
-
+  //decompress
   line.push(function(next) {
-    // decompress
-    require('child_process').exec(_.decompress(afp)).on('exit', function(code) {
-      log('Decompress mongodb archive finished.');
-      next();
-    });
+    _.decompress(afp).on('message', log).on('error', stop).on('end', next);
   });
 
+  // add symbolic link
   line.push(function(next) {
-    // remove sinbolic link if exist
-    fs.unlink(conf.simbolicLinkTo, function(err) {
-      next();
-    })
-  });
-
-  line.push(function(next) {
-    // add sinbolic link
-    require('child_process').exec(
-      _.simbolicLink(mongoArchive(), conf.simbolicLinkTo)).on('exit', onExit);
-    function onExit(code) {
-      log('Create simbolic link "' + conf.simbolicLinkTo + '" finished.');
-      next();
-    }
+    _.simbolicLink(mongoArchive(), conf.simbolicLinkTo).on('message', log).on(
+      'error', stop).on('end', next);
   });
 
   line.push(function() {

@@ -1,7 +1,7 @@
 {
   "name": "fvm-install-tasks",
   "version": "0.1.0",
-  "taskList": ["mongodb-process-launch", "foonyah-prepare"],
+  "taskList": ["mongodb-install"],
   "configure": {
     "mongodb": {
       "dist": "http://fastdl.mongodb.org/",
