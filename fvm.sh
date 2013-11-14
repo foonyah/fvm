@@ -3,9 +3,14 @@
 # To use source this file from your bash profile
 
 # Implemented by Yoshitaka Sakamoto <sakamoto@liberty-technology.biz>
+
 fvm () {
   node_source
-  node $FVM_DIRC/fvm.js $@ --config=$FVM_DIRC/package.json
+  if [ "--all" == "$2" ];then
+    node $FVM_DIRC/fvm.js $@ --config=$FVM_DIRC/package.json
+  else
+    node $FVM_DIRC/fvm.js $@
+  fi
 }
 
 fpm () {
@@ -59,19 +64,22 @@ if [ -n "$INSTALL" ];then
   git clone https://github.com/creationix/nvm.git $NVM_DIRC
   git clone https://github.com/foonyah/fvm.git $FVM_DIRC
   source $NVM_DIRC/nvm.sh
+  echo "Installing node v$NODE_VER..."
   nvm install v$NODE_VER
 fi
 
 if [ ! -d "./node_modules" ];then
+  echo "Create node_module directory."
   mkdir -p node_modules
 fi
 
 if [ -n "$INSTALL" ];then
   # require npm modules
+  echo "Installing require npm packages..."
   if [ ! -d "./node_modules/grunt-runner" ];then
     node_source
-    npm install grunt-runner@0.8.0
+    npm install grunt-runner@0.9.0
     npm install grunt-tree-prepare@0.9.1
   fi
-  fvm install
+  fvm install --all
 fi
