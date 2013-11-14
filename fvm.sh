@@ -78,7 +78,7 @@ if [ -n "$INSTALL" ];then
   echo "Installing require npm packages..."
   if [ ! -d "./node_modules/grunt-runner" ];then
     node_source
-    npm install grunt-runner@0.9.0
+    npm install grunt-runner@0.9.1
     npm install grunt-tree-prepare@0.9.1
   fi
   fvm install --all
