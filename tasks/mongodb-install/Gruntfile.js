@@ -1,16 +1,37 @@
 /***/
-var path = require('path'), fs = require('fs'), _ = require('grunt-runner')._;
-var taskname = _.taskname(__dirname); // mongodb-install
+// mongodb-install
+var path = require('path'), fs = require('fs'), grun = require('grunt-runner');
+var _ = grun._, taskname = _.taskname(__dirname);
 
 module.exports = function(grunt) {
-  var tmes = 'Download archive and install mongodb.';
-  grunt.registerTask(taskname, tmes, _.caught(function() {
-    mongodbInstall(grunt, _.mixedConfigure(grunt, taskname), this);
-  }, grunt.fail));
-};
-function mongodbInstall(grunt, conf, gtask) {
 
-  var afp = path.join(_.pwd, 'mongodb' + _.archiveExt());
+  var tmes = 'Download archive and install mongodb.';
+  var conf = _.mixedConfigure(grunt, taskname);
+
+  grunt.config.set('tree-prepare', {
+    options: {},
+    tree: {
+      '.': [conf.rootdir]
+    }
+  });
+
+  // create root directory
+  grunt.loadNpmTasks('grunt-tree-prepare');
+
+  // main process
+  var task_main = taskname + '.main';
+  grunt.registerTask(task_main, tmes, _.caught(function() {
+    mongodbInstall(grunt, this, conf);
+  }, grunt.fail));
+
+  // to be called
+  grunt.registerTask(taskname, tmes, ['tree-prepare', task_main]);
+
+};
+
+function mongodbInstall(grunt, gtask, conf) {
+
+  var afp = path.join(_.pwd, conf.rootdir, 'mongodb' + _.archiveExt());
   var line = [], done = gtask.async(), stop = function(e) {
     grunt.fail.fatal(e);
   }, log = function(m) {
@@ -23,6 +44,11 @@ function mongodbInstall(grunt, conf, gtask) {
       'end', next);
   });
 
+  // cd database root
+  line.push(function() {
+    process.chdir(conf.rootdir), _.next(arguments)();
+  });
+
   //decompress
   line.push(function(next) {
     _.decompress(afp).on('message', log).on('error', stop).on('end', next);
@@ -30,8 +56,13 @@ function mongodbInstall(grunt, conf, gtask) {
 
   // add symbolic link
   line.push(function(next) {
-    _.symlinkd(mongoArchive(), conf.simbolicLinkTo).on('message', log).on(
-      'error', stop).on('end', next);
+    _.symlinkd(mongoArchive(), path.join(conf.simbolicLinkTo)).on('message',
+      log).on('error', stop).on('end', next);
+  });
+
+  //revert process position
+  line.push(function(next) {
+    process.chdir(_.pwd), _.next(arguments)();
   });
 
   line.push(function() {

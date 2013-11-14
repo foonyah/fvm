@@ -5,16 +5,16 @@
 # Implemented by Yoshitaka Sakamoto <sakamoto@liberty-technology.biz>
 fvm () {
   node_source
-  node $FVM_PATH/fvm.js $@
+  node $FVM_DIRC/fvm.js $@ --config=$FVM_DIRC/package.json
 }
 
 fpm () {
   node_source
-  node $FVM_PATH/fpm.js $@
+  node $FVM_DIRC/fpm.js $@
 }
 
 node_source () {
-  source $NVM_PATH/nvm.sh
+  source $NVM_DIRC/nvm.sh
   nvm use v$NODE_VER
 }
 
@@ -37,29 +37,28 @@ fi
 if [ "sh" == "$0" ];then
   INSTALL=1
   # execute this position
-else if [ "install" == "$1" ];then
+elif [ "install" == "$1" ];then
   INSTALL=1
 fi
 
-
 # Set nvm directory ( Default: .nvm )
-if [ -z "$NVM_PATH" ];then
-  NVM_PATH=.nvm
+if [ -z "$NVM_DIRC" ];then
+  NVM_DIRC=.nvm
 fi
 if [ -z "$NODE_VER" ];then
   NODE_VER=0.10.21
 fi
-NVM_HOME=$WORKSPACE/$NVM_PATH
+NVM_HOME=$WORKSPACE/$NVM_DIRC
 
 # Set nvm directory ( Default: .fvm )
-if [ -z "$FVM_PATH" ];then
-  FVM_PATH=.fvm
+if [ -z "$FVM_DIRC" ];then
+  FVM_DIRC=.fvm
 fi
 
 if [ -n "$INSTALL" ];then
-  git clone https://github.com/creationix/nvm.git $NVM_PATH
-  git clone https://github.com/foonyah/fvm.git $FVM_PATH
-  source $NVM_PATH/nvm.sh
+  git clone https://github.com/creationix/nvm.git $NVM_DIRC
+  git clone https://github.com/foonyah/fvm.git $FVM_DIRC
+  source $NVM_DIRC/nvm.sh
   nvm install v$NODE_VER
 fi
 
@@ -69,8 +68,10 @@ fi
 
 if [ -n "$INSTALL" ];then
   # require npm modules
-  if [ ! -d "./node_modules/grun" ];then
-    npm install grun@0.1.0
+  if [ ! -d "./node_modules/grunt-runner" ];then
+    node_source
+    npm install grunt-runner@0.8.0
+    npm install grunt-tree-prepare@0.9.1
   fi
   fvm install
 fi

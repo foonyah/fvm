@@ -1,2 +1,2 @@
 /***/
-require('grunt-runner')(__dirname);
+require('grunt-runner')(null, __dirname + '/tasks');

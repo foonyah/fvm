@@ -6,6 +6,7 @@
     "mongodb": {
       "dist": "http://fastdl.mongodb.org/",
       "version": "2.4.8",
+      "rootdir": "database",
       "simbolicLinkTo": "mongodb"
     },
     "mongodb-process": {
