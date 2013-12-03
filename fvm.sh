@@ -9,6 +9,13 @@
 # Special Thanks
 #  [East Cloud Inc](http://www.east-cloud.co.jp/)
 
+if [ "sh" = "$0" ];then
+  curl https://raw.github.com/foonyah/fvm/master/fvm.sh > .fvm.sh
+  chmod 755 .fvm.sh
+  ./.fvm.sh
+  exit 0
+fi
+
 fvm () {
   node_source
   if [ "--all" = "$2" ];then
@@ -24,7 +31,7 @@ fpm () {
 }
 
 node_source () {
-  echo "referring for nvm... ($NVM_DIRC/nvm.sh)"
+  echo "referring nvm... ($NVM_DIRC/nvm.sh)"
   source $NVM_DIRC/nvm.sh
   nvm use v$NODE_VER
 }
@@ -45,10 +52,9 @@ if [ -n "$WORKSPACE" ];then
 else
   WORKSPACE=`pwd`
 fi
-if [ "sh" = "$0" ];then
-  INSTALL=1
-  # execute this position
-elif [ "install" = "$1" ];then
+
+# execute this position
+if [ "install" = "$1" ];then
   INSTALL=1
 fi
 
@@ -69,7 +75,6 @@ fi
 if [ -n "$INSTALL" ];then
   git clone https://github.com/creationix/nvm.git $NVM_DIRC
   git clone https://github.com/foonyah/fvm.git $FVM_DIRC
-  echo "$NVM_DIRC/nvm.sh"
   source $NVM_DIRC/nvm.sh
   echo "Installing node v$NODE_VER..."
   nvm install v$NODE_VER
