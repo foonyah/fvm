@@ -12,7 +12,7 @@
 if [ "sh" = "$0" ];then
   curl https://raw.github.com/foonyah/fvm/master/fvm.sh > .fvm.sh
   chmod 755 .fvm.sh
-  ./.fvm.sh
+  ./.fvm.sh install
   exit 0
 fi
 
