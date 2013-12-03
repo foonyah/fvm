@@ -39,10 +39,10 @@ if [ -n "$WORKSPACE" ];then
 else
   WORKSPACE=`pwd`
 fi
-if [ "sh" == "$0" ];then
+if [ "sh" = "$0" ];then
   INSTALL=1
   # execute this position
-elif [ "install" == "$1" ];then
+elif [ "install" = "$1" ];then
   INSTALL=1
 fi
 
