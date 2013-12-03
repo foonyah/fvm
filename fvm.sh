@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # foonyah Version Manager
 # Implemented as a bash function
