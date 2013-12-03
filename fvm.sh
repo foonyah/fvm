@@ -24,7 +24,7 @@ fvm () {
     node $FVM_DIRC/fvm.js $@ --config=$FVM_DIRC/package.json
     exit 0
   fi
-  if [ "$2" = "1" ];then
+  if [ "$2" = "0" ];then
     exit 0
   fi
   node $FVM_DIRC/fvm.js $@
