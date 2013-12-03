@@ -6,7 +6,7 @@
 
 fvm () {
   node_source
-  if [ "--all" == "$2" ];then
+  if [ "--all" = "$2" ];then
     node $FVM_DIRC/fvm.js $@ --config=$FVM_DIRC/package.json
   else
     node $FVM_DIRC/fvm.js $@
