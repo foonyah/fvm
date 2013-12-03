@@ -1,8 +1,13 @@
+#!/bin/sh
+
 # foonyah Version Manager
 # Implemented as a bash function
 # To use source this file from your bash profile
 
 # Implemented by Yoshitaka Sakamoto <sakamoto@liberty-technology.biz>
+#  [Liberty Technology](http://liberty-techonolgy.biz/)
+# Special Thanks
+#  [East Cloud Inc](http://www.east-cloud.co.jp/)
 
 fvm () {
   node_source
@@ -19,6 +24,7 @@ fpm () {
 }
 
 node_source () {
+  echo "referring for nvm... ($NVM_DIRC/nvm.sh)"
   source $NVM_DIRC/nvm.sh
   nvm use v$NODE_VER
 }
@@ -63,6 +69,7 @@ fi
 if [ -n "$INSTALL" ];then
   git clone https://github.com/creationix/nvm.git $NVM_DIRC
   git clone https://github.com/foonyah/fvm.git $FVM_DIRC
+  echo "$NVM_DIRC/nvm.sh"
   source $NVM_DIRC/nvm.sh
   echo "Installing node v$NODE_VER..."
   nvm install v$NODE_VER
