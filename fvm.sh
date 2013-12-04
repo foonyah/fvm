@@ -77,21 +77,19 @@ if [ ! -d "$NVM_DIRC" ];then
   source $NVM_DIRC/nvm.sh
   echo "Installing node v$NODE_VER..."
   nvm install v$NODE_VER
-fi
-if [ -n "$INSTALL" ];then
-  git clone https://github.com/foonyah/fvm.git $FVM_DIRC
-fi
-if [ ! -d "./node_modules" ];then
-  echo "Create node_module directory."
-  mkdir -p node_modules
-fi
-if [ -n "$INSTALL" ];then
   # require npm modules
   echo "Installing require npm packages..."
+  if [ ! -d "./node_modules" ];then
+    echo "Create node_module directory."
+    mkdir -p node_modules
+  fi
   if [ ! -d "./node_modules/grunt-runner" ];then
     node_source
     npm install grunt-runner@0.9.1
     npm install grunt-tree-prepare@0.9.1
   fi
+fi
+if [ -n "$INSTALL" ];then
+  git clone https://github.com/foonyah/fvm.git $FVM_DIRC
   fvm install $INSTALL
 fi
