@@ -24,9 +24,10 @@ fvm () {
     exit 0
   fi
   if [ "$2" = "0" ];then
-    exit 0
+    # noop
+  else
+    node $FVM_DIRC/fvm.js $@
   fi
-  node $FVM_DIRC/fvm.js $@
 }
 fpm () {
   node_source
