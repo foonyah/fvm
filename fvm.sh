@@ -24,7 +24,7 @@ fvm () {
     exit 0
   fi
   if [ "$2" = "0" ];then
-    # noop
+    echo "fvm noop."
   else
     node $FVM_DIRC/fvm.js $@
   fi
