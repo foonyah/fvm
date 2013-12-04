@@ -73,12 +73,12 @@ if [ -z "$FVM_DIRC" ];then
 fi
 if [ ! -d "$NVM_DIRC" ];then
   git clone https://github.com/creationix/nvm.git $NVM_DIRC
-fi
-if [ -n "$INSTALL" ];then
-  git clone https://github.com/foonyah/fvm.git $FVM_DIRC
   source $NVM_DIRC/nvm.sh
   echo "Installing node v$NODE_VER..."
   nvm install v$NODE_VER
+fi
+if [ -n "$INSTALL" ];then
+  git clone https://github.com/foonyah/fvm.git $FVM_DIRC
 fi
 if [ ! -d "./node_modules" ];then
   echo "Create node_module directory."
