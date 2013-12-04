@@ -6,8 +6,7 @@
 
 # Implemented by Yoshitaka Sakamoto <sakamoto@liberty-technology.biz>
 #  [Liberty Technology](http://liberty-techonolgy.biz/)
-# Special Thanks
-#  [East Cloud Inc](http://www.east-cloud.co.jp/)
+# Special Thanks [East Cloud Inc](http://www.east-cloud.co.jp/)
 
 # tunneling execution
 if [ "sh" = "$0" ];then
@@ -72,8 +71,10 @@ NVM_HOME=$WORKSPACE/$NVM_DIRC
 if [ -z "$FVM_DIRC" ];then
   FVM_DIRC=.fvm
 fi
-if [ -n "$INSTALL" ];then
+if [ ! -d "$NVM_DIRC" ];then
   git clone https://github.com/creationix/nvm.git $NVM_DIRC
+fi
+if [ -n "$INSTALL" ];then
   git clone https://github.com/foonyah/fvm.git $FVM_DIRC
   source $NVM_DIRC/nvm.sh
   echo "Installing node v$NODE_VER..."
