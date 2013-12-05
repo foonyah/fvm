@@ -23,9 +23,9 @@ module.exports = function(grunt) {
 
   // main process
   var task_main = taskname + '.main';
-  grunt.registerTask(task_main, tmes, _.caught(function() {
+  grunt.registerTask(task_main, tmes, function() {
     mongodbPLaunch(grunt, this, conf);
-  }, grunt.fail));
+  });
 
   // to be called
   grunt.registerTask(taskname, tmes, ['tree-prepare', task_main]);

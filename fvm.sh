@@ -85,7 +85,7 @@ if [ ! -d "$NVM_DIRC" ];then
   fi
   if [ ! -d "./node_modules/grunt-runner" ];then
     node_source
-    npm install grunt-runner@0.9.1
+    npm install grunt-runner@1.2.0
     npm install grunt-tree-prepare@0.9.1
   fi
 fi
